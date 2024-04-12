@@ -1,0 +1,112 @@
+def new_game(subject):
+
+    questions = subjects[subject]
+    options = subject_options[subject]
+
+    guesses = []
+    correct_guesses = 0
+    question_num = 1
+    for key in questions:
+        print("-------------------------")
+        print(key)
+        for i in options[question_num-1]:
+            print(i)
+        guess = input("Enter (A, B, C, or D): ")
+        guess = guess.upper()
+        guesses.append(guess)
+
+        correct_guesses += check_answer(questions.get(key), guess)
+        question_num += 1
+
+    display_score(correct_guesses, guesses, questions)
+
+
+def select_subject():
+    print("Select a subject:")
+    for i, subject in enumerate(subjects.keys(), 1):
+        print(f"{i}. {subject}")
+    while True:
+        try:
+            choice = int(input("Enter the number corresponding to your choice: "))
+            if 1 <= choice <= len(subjects):
+                return list(subjects.keys())[choice - 1]
+            else:
+                print("Invalid choice. Please enter a valid number.")
+        except ValueError:
+            print("Invalid choice. Please enter a valid number.")
+
+
+def check_answer(answer, guess):
+    if answer == guess:
+        print("CORRECT!")
+        return 1
+    else:
+        print("YOU SUCK!")
+        return 0
+
+
+def display_score(correct_guesses, guesses, questions):
+    print("-------------------------")
+    print("RESULTS")
+    print("-------------------------")
+
+    print("Answers: ", end="")
+    for i in questions.values():
+        print(i, end=" ")
+    print()
+
+    print("Guesses: ", end="")
+    for i in guesses:
+        print(i, end=" ")
+    print()
+
+    score = int((correct_guesses/len(questions))*100)
+    print("Your score is: "+str(score)+"%")
+
+
+def play_again():
+    response = input("Do you want to play again? (yes or no): ")
+    response = response.upper()
+
+    if response == "YES":
+        return True
+    else:
+        return False
+
+
+subjects = {
+    "Python": {
+        "Who created Python?: ": "A",
+        "What year was Python created?: ": "B",
+        "Python is tributed to which comedy group?: ": "C",
+        "Is Python interpreted or compiled?: ": "A"
+    },
+    "History": {
+        "What year did World War I begin?: ": "B",
+        "Who was the first President of the United States?: ": "C",
+        "In which year did the Titanic sink?: ": "D",
+        "Who painted the Mona Lisa?: ": "A"
+    }
+}
+
+subject_options = {
+    "Python": [
+        ["A. Guido van Rossum", "B. Elon Musk", "C. Bill Gates", "D. Mark Zuckerberg"],
+        ["A. 1989", "B. 1991", "C. 2000", "D. 2016"],
+        ["A. Lonely Island", "B. Smosh", "C. Monty Python", "D. SNL"],
+        ["A. Interpreted", "B. Compiled", "C. Both", "D. None of the above"]
+    ],
+    "History": [
+        ["A. 1914", "B. 1918", "C. 1922", "D. 1939"],
+        ["A. Abraham Lincoln", "B. George Washington", "C. Thomas Jefferson", "D. John Adams"],
+        ["A. 1910", "B. 1912", "C. 1914", "D. 1916"],
+        ["A. Leonardo da Vinci", "B. Pablo Picasso", "C. Vincent van Gogh", "D. Michelangelo"]
+    ]
+}
+
+selected_subject = select_subject()
+new_game(selected_subject)
+
+while play_again():
+    selected_subject = select_subject()
+    new_game(selected_subject)
