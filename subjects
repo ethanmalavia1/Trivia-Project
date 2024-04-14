@@ -21,7 +21,7 @@ def new_game(subject):
     display_score(correct_guesses, guesses, questions)
 
 
-def select_subject():
+def choose_subject():
     print("Select a subject:")
     for i, subject in enumerate(subjects.keys(), 1):
         print(f"{i}. {subject}")
@@ -86,6 +86,12 @@ subjects = {
         "Who was the first President of the United States?: ": "C",
         "In which year did the Titanic sink?: ": "D",
         "Who painted the Mona Lisa?: ": "A"
+    },
+    "Class Trivia": {
+        "When was the first day of class?: ": "B",
+        "What percentage of our grade was Test 1 and Test 2?: ": "D",
+        "What was the title of Chapter 3 in the class textbook?: ": "B",
+        "How much does your grade decrease per day if an assignment is late: ": "C"
     }
 }
 
@@ -99,13 +105,24 @@ subject_options = {
     "History": [
         ["A. 1914", "B. 1918", "C. 1922", "D. 1939"],
         ["A. Abraham Lincoln", "B. George Washington", "C. Thomas Jefferson", "D. John Adams"],
-        ["A. 1910", "B. 1912", "C. 1914", "D. 1916"],
+        ["A. 1910", "B. 1916", "C. 1914", "D. 1912"],
         ["A. Leonardo da Vinci", "B. Pablo Picasso", "C. Vincent van Gogh", "D. Michelangelo"]
+    ],
+    "Class Trivia": [
+        ["A. Jan. 12th", "B. Jan 8th", "C. Jan 12th", "D. Feb 1st"],
+        ["A. 25%", "B. 20%", "C. 15%", "D. 30%"],
+        ["A. Gates and Circuits", "B. Data representation", "C. Computing Components", "D. Intro to Computer Science"],
+        ["A. 10%", "B. 3%", "C. 5%", "D. 15%"]
     ]
+
 }
 
-selected_subject = select_subject()
+selected_subject = choose_subject()
 new_game(selected_subject)
+
+while play_again():
+    selected_subject = choose_subject()
+    new_game(selected_subject)
 
 while play_again():
     selected_subject = select_subject()
