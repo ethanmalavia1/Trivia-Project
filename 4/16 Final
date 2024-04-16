@@ -1,0 +1,152 @@
+#imports time library 
+import time
+
+
+#implements what the time limit is
+time_limit = 60
+
+
+#creates a new game function and what the subjects are, how much time to complete them
+def new_game(subject):
+    questions = subjects[subject]
+    options = subject_options[subject]
+
+    guesses = []
+    correct_guesses = 0
+    question_num = 1
+
+    print("You have", time_limit,"seconds to complete the quiz.")    
+    start_time = time.time()
+    time_up = False
+
+    for key in questions:
+        if time.time() - start_time > time_limit:
+            print("TIME'S UP!!!")
+            time_up = True
+            break
+     
+        print("-------------------------")
+        print(key)
+        for i in options[question_num-1]:
+            print(i)
+        
+        guess = input("Enter (A, B, C, or D): ")
+        guess = guess.upper()
+        guesses.append(guess)
+        correct_guesses += check_answer(questions.get(key), guess)
+        question_num += 1
+
+#how to read, store and display answers  
+    display_score(correct_guesses, guesses, questions)
+
+    if time_up:
+        print("You didn't finish the quiz in time.")
+        print("Your score will be calculated based on the questions you answered.")
+        print("Returning to main menu...\n")
+
+
+#creates the function that allows the user to pick from three different subjects
+def choose_subject():
+    print("Select a subject:")
+    for i, subject in enumerate(subjects.keys(), 1):
+        print(f"{i}. {subject}")
+    while True:
+        try:
+            choice = int(input("Enter the number corresponding to your choice: "))
+            if 1 <= choice <= len(subjects):
+                return list(subjects.keys())[choice - 1]
+            else:
+                print("Invalid choice. Please enter a valid number.")
+        except ValueError:
+            print("Invalid choice. Please enter a valid number.")
+
+#checks the users guess and if it was right or wrong
+def check_answer(answer, guess):   
+    if answer == guess:
+        print("CORRECT!")
+        return 1
+    else:
+        print("YOU SUCK!")
+        return 0
+
+#displays to the user the final results and score on the quiz
+def display_score(correct_guesses, guesses, questions):
+    print("-------------------------")
+    print("RESULTS")
+    print("-------------------------")
+
+    print("Answers: ", end="")
+    for i in questions.values():
+        print(i, end=" ")
+    print()
+
+    print("Guesses: ", end="")
+    for i in guesses:
+        print(i, end=" ")
+    print()
+
+    score = int((correct_guesses/len(questions))*100)
+    print("Your score is: "+str(score)+"%")
+
+#prompts the user 
+def play_again():
+    response = input("Do you want to play again? (yes or no): ")
+    response = response.upper()
+
+    if response == "YES":
+        return True
+    elif response == "NO":
+        return False
+    else:
+        print("Invalid response. Please enter 'yes' or 'no'.")
+
+
+subjects = {
+    "Python": {
+        "Who created Python?: ": "A",
+        "What year was Python created?: ": "B",
+        "Python is tributed to which comedy group?: ": "C",
+        "Is Python interpreted or compiled?: ": "A"
+    },
+    "History": {
+        "What year did World War I begin?: ": "A",
+        "Who was the first President of the United States?: ": "B",
+        "In which year did the Titanic sink?: ": "D",
+        "Who painted the Mona Lisa?: ": "A"
+    },
+    "Class Trivia": {
+        "When was the first day of class?: ": "B",
+        "What percentage of our grade was Test 1 and Test 2?: ": "D",
+        "What was the title of Chapter 3 in the class textbook?: ": "B",
+        "How much does your grade decrease per day if an assignment is late: ": "C"
+    }
+}
+
+subject_options = {
+    "Python": [
+        ["A. Guido van Rossum", "B. Elon Musk", "C. Bill Gates", "D. Mark Zuckerberg"],
+        ["A. 1989", "B. 1991", "C. 2000", "D. 2016"],
+        ["A. Lonely Island", "B. Smosh", "C. Monty Python", "D. SNL"],
+        ["A. Interpreted", "B. Compiled", "C. Both", "D. None of the above"]
+    ],
+    "History": [
+        ["A. 1914", "B. 1918", "C. 1922", "D. 1939"],
+        ["A. Abraham Lincoln", "B. George Washington", "C. Thomas Jefferson", "D. John Adams"],
+        ["A. 1910", "B. 1916", "C. 1914", "D. 1912"],
+        ["A. Leonardo da Vinci", "B. Pablo Picasso", "C. Vincent van Gogh", "D. Michelangelo"]
+    ],
+    "Class Trivia": [
+        ["A. Jan. 12th", "B. Jan 8th", "C. Jan 12th", "D. Feb 1st"],
+        ["A. 25%", "B. 20%", "C. 15%", "D. 30%"],
+        ["A. Gates and Circuits", "B. Data representation", "C. Computing Components", "D. Intro to Computer Science"],
+        ["A. 10%", "B. 3%", "C. 5%", "D. 15%"]
+    ]
+
+}
+
+selected_subject = choose_subject()
+new_game(selected_subject)
+
+while play_again():
+    selected_subject = choose_subject()
+    new_game(selected_subject)
