@@ -89,7 +89,7 @@ def display_score(correct_guesses, guesses, questions):
     score = int((correct_guesses/len(questions))*100)
     print("Your score is: "+str(score)+"%")
 
-#prompts the user 
+#prompts the user if they would like to play again
 def play_again():
     response = input("Do you want to play again? (yes or no): ")
     response = response.upper()
