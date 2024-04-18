@@ -5,20 +5,6 @@ import time
 #implements what the time limit is
 time_limit = 60
 
-#creates the function that allows the user to pick from three different subjects
-def choose_subject():
-    print("Select a subject:")
-    for i, subject in enumerate(subjects.keys(), 1):
-        print(f"{i}. {subject}")
-    while True:
-        try:
-            choice = int(input("Enter the number corresponding to your choice: "))
-            if 1 <= choice <= len(subjects):
-                return list(subjects.keys())[choice - 1]
-            else:
-                print("Invalid choice. Please enter a valid number.")
-        except ValueError:
-            print("Invalid choice. Please enter a valid number.")
 
 #creates a new game function and what the subjects are, how much time to complete them
 #This is borrowed but modified
@@ -48,7 +34,7 @@ def new_game(subject):
         guess = input("Enter (A, B, C, or D): ")
         guess = guess.upper()
         guesses.append(guess)
-        correct_guesses += check_answer(questions.get(key), guess, options[question_num-1][0])
+        correct_guesses += check_answer(questions.get(key), guess)
         question_num += 1
 
 #how to read, store and display answers  
@@ -60,13 +46,28 @@ def new_game(subject):
         print("Returning to main menu...\n")
 
 
+#creates the function that allows the user to pick from three different subjects
+def choose_subject():
+    print("Select a subject:")
+    for i, subject in enumerate(subjects.keys(), 1):
+        print(f"{i}. {subject}")
+    while True:
+        try:
+            choice = int(input("Enter the number corresponding to your choice: "))
+            if 1 <= choice <= len(subjects):
+                return list(subjects.keys())[choice - 1]
+            else:
+                print("Invalid choice. Please enter a valid number.")
+        except ValueError:
+            print("Invalid choice. Please enter a valid number.")
+
 #checks the users guess and if it was right or wrong
-def check_answer(answer, guess, correct_answer):   
+def check_answer(answer, guess):   
     if answer == guess:
         print("CORRECT!")
         return 1
     else:
-        print("WRONG! The correct answer was", correct_answer)
+        print("YOU SUCK!")
         return 0
 
 #displays to the user the final results and score on the quiz
@@ -117,7 +118,7 @@ subjects = {
     "Class Trivia": {
         "When was the first day of class?: ": "B",
         "What percentage of our grade was Test 1 and Test 2?: ": "D",
-        "What was the title of Chapter 3 in the class textbook?: ": "B",
+        "What was the title of Chapter 4 in the class textbook?: ": "A",
         "How much does your grade decrease per day if an assignment is late: ": "C"
     }
 }
@@ -136,7 +137,7 @@ subject_options = {
         ["A. Leonardo da Vinci", "B. Pablo Picasso", "C. Vincent van Gogh", "D. Michelangelo"]
     ],
     "Class Trivia": [
-        ["A. Jan. 12th", "B. Jan 8th", "C. Jan 12th", "D. Feb 1st"],
+        ["A. Jan. 12th", "B. Jan 8th", "C. Jan 11th", "D. Feb 1st"],
         ["A. 25%", "B. 20%", "C. 15%", "D. 30%"],
         ["A. Gates and Circuits", "B. Data representation", "C. Computing Components", "D. Intro to Computer Science"],
         ["A. 10%", "B. 3%", "C. 5%", "D. 15%"]
@@ -149,6 +150,4 @@ new_game(selected_subject)
 
 while play_again():
     selected_subject = choose_subject()
-    new_game(selected_subject)
-
     new_game(selected_subject)
