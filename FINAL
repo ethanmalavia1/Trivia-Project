@@ -16,7 +16,7 @@ def new_game(subject):
     correct_guesses = 0
     question_num = 1
 
-    print("You have", time_limit,"seconds to complete the quiz.")    
+    print("You have", time_limit,"seconds to complete the quiz!!!")    
     start_time = time.time()
     time_up = False
 
