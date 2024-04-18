@@ -101,7 +101,7 @@ def play_again():
     else:
         print("Invalid response. Please enter 'yes' or 'no'.")
 
-
+#subjects to choose from and their respective answers
 subjects = {
     "Python": {
         "Who created Python?: ": "A",
@@ -122,7 +122,7 @@ subjects = {
         "How much does your grade decrease per day if an assignment is late: ": "C"
     }
 }
-
+#Questions or options available to choose from 
 subject_options = {
     "Python": [
         ["A. Guido van Rossum", "B. Elon Musk", "C. Bill Gates", "D. Mark Zuckerberg"],
