@@ -5,6 +5,20 @@ import time
 #implements what the time limit is
 time_limit = 60
 
+#creates the function that allows the user to pick from three different subjects
+def choose_subject():
+    print("Select a subject:")
+    for i, subject in enumerate(subjects.keys(), 1):
+        print(f"{i}. {subject}")
+    while True:
+        try:
+            choice = int(input("Enter the number corresponding to your choice: "))
+            if 1 <= choice <= len(subjects):
+                return list(subjects.keys())[choice - 1]
+            else:
+                print("Invalid choice. Please enter a valid number.")
+        except ValueError:
+            print("Invalid choice. Please enter a valid number.")
 
 #creates a new game function and what the subjects are, how much time to complete them
 #This is borrowed but modified
@@ -45,21 +59,6 @@ def new_game(subject):
         print("Your score will be calculated based on the questions you answered.")
         print("Returning to main menu...\n")
 
-
-#creates the function that allows the user to pick from three different subjects
-def choose_subject():
-    print("Select a subject:")
-    for i, subject in enumerate(subjects.keys(), 1):
-        print(f"{i}. {subject}")
-    while True:
-        try:
-            choice = int(input("Enter the number corresponding to your choice: "))
-            if 1 <= choice <= len(subjects):
-                return list(subjects.keys())[choice - 1]
-            else:
-                print("Invalid choice. Please enter a valid number.")
-        except ValueError:
-            print("Invalid choice. Please enter a valid number.")
 
 #checks the users guess and if it was right or wrong
 def check_answer(answer, guess, correct_answer):   
@@ -152,6 +151,4 @@ while play_again():
     selected_subject = choose_subject()
     new_game(selected_subject)
 
-while play_again():
-    selected_subject = choose_subject()
     new_game(selected_subject)
