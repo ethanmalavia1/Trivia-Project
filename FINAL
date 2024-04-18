@@ -7,7 +7,7 @@ time_limit = 60
 
 
 #creates a new game function and what the subjects are, how much time to complete them
-#This the part we borrowed 
+#This is borrowed but modified
 def new_game(subject):
     questions = subjects[subject]
     options = subject_options[subject]
