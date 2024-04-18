@@ -34,7 +34,7 @@ def new_game(subject):
         guess = input("Enter (A, B, C, or D): ")
         guess = guess.upper()
         guesses.append(guess)
-        correct_guesses += check_answer(questions.get(key), guess)
+        correct_guesses += check_answer(questions.get(key), guess, options[question_num-1][0])
         question_num += 1
 
 #how to read, store and display answers  
@@ -62,12 +62,12 @@ def choose_subject():
             print("Invalid choice. Please enter a valid number.")
 
 #checks the users guess and if it was right or wrong
-def check_answer(answer, guess):   
+def check_answer(answer, guess, correct_answer):   
     if answer == guess:
         print("CORRECT!")
         return 1
     else:
-        print("YOU SUCK!")
+        print("WRONG! The correct answer was", correct_answer)
         return 0
 
 #displays to the user the final results and score on the quiz
@@ -147,6 +147,10 @@ subject_options = {
 
 selected_subject = choose_subject()
 new_game(selected_subject)
+
+while play_again():
+    selected_subject = choose_subject()
+    new_game(selected_subject)
 
 while play_again():
     selected_subject = choose_subject()
