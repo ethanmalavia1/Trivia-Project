@@ -1,3 +1,4 @@
+#this is our implementation of subjects to the quiz
 def new_game(subject):
 
     questions = subjects[subject]
