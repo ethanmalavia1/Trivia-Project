@@ -8,6 +8,6 @@ Once a user selects a subject, the new_game function dynamically presents the qu
 
 After selecting an option, the user's choice is passed to the check_answer function, which validates the answer. Upon completing the quiz, the display_score function is invoked, presenting the user's score. Subsequently, the new_game function prompts the user to decide whether they want to play again.
 
-Improvments: Some things that we can improve is better visual effects if more time was allotted. Could have implemented a difficulty system. We could have implemented more error handling for the questions.
+Improvments: Some things that we can improve is better visual effects if more time was allotted. We could of added a GUI. We could have implemented a difficulty system. We could have implemented better error handling for the questions.
 
 Summary: Overall, our project is a quiz game that dynamically displays questions based on a subject. The program keeps track of correct and wrong answers, and has a timer feature that makes it a timed quiz.
